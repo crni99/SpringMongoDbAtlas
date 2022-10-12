@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.support.PersistableIsNewStrategy;
 import org.springframework.stereotype.Service;
 
 import com.crni99.springmongoatlas.model.Person;
@@ -31,20 +30,34 @@ public class PersonService {
 		return personRepository.findById(personId).get();
 	}
 
-	public List<Person> getByPersonAge(Integer minAge, Integer maxAge) {
-		return personRepository.findPersonByAgeBetween(minAge, maxAge);
+	public List<Person> getByPersonGender(String gender) {
+		return personRepository.findPersonByGender(gender.toUpperCase());
 	}
 
 	public Person updatePerson(Person personRequested) {
 		// get the existing document from DB
 		// populate new value from request to existing object/entity/document
 		Person existingPerson = personRepository.findById(personRequested.getPersonId()).get();
-		existingPerson.setFirstName(personRequested.getFirstName());
-		existingPerson.setLastName(personRequested.getLastName());
-		existingPerson.setDob(personRequested.getDob());
-		existingPerson.setGender(personRequested.getGender());
-		existingPerson.setAddress(personRequested.getAddress());
-		existingPerson.setHobbies(personRequested.getHobbies());
+
+		if (personRequested.getFirstName() != null) {
+			existingPerson.setFirstName(personRequested.getFirstName());
+		}
+		if (personRequested.getLastName() != null) {
+			existingPerson.setLastName(personRequested.getLastName());
+		}
+		if (personRequested.getDob() != null) {
+			existingPerson.setDob(personRequested.getDob());
+		}
+		if (personRequested.getGender() != null) {
+			existingPerson.setGender(personRequested.getGender());
+		}
+		if (personRequested.getAddress() != null) {
+			existingPerson.setAddress(personRequested.getAddress());
+		}
+		if (personRequested.getHobbies().size() != 0) {
+			existingPerson.setHobbies(personRequested.getHobbies());
+		}
+
 		return personRepository.save(existingPerson);
 	}
 
