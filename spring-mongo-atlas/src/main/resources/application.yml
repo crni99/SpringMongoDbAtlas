@@ -1,5 +1,7 @@
 spring:
   data:
     mongodb:
-      uri : mongodb+srv://admin:admin@crni99.jpfmzmw.mongodb.net/?retryWrites=true&w=majority
-      database : Person
+      uri : mongodb+srv://admin:admin@crni99.jpfmzmw.mongodb.net/Person
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER

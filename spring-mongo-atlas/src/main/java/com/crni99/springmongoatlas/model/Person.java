@@ -5,14 +5,13 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Builder;
 import lombok.Data;
 
-// @JsonInclude - Ignore Null Fields
+// @JsonInclude.Include.NON_NULL - Ignore Null Fields
 
 @Data
 @Builder

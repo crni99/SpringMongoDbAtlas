@@ -1,5 +1,8 @@
 package com.crni99.springmongoatlas.service;
 
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +34,15 @@ public class PersonService {
 	}
 
 	public List<Person> getByPersonGender(String gender) {
-		return personRepository.findPersonByGender(gender.toUpperCase());
+		return personRepository.findPersonsByGender(gender.toUpperCase());
+	}
+
+	public List<Person> findByDateBetween(LocalDate from, LocalDate to) {
+
+		Date d1 = (Date) Date.from(from.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+		Date d2 = (Date) Date.from(to.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+
+		return personRepository.findByDateBetween(d1, d2);
 	}
 
 	public Person updatePerson(Person personRequested) {
