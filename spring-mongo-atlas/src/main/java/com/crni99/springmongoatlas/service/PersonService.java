@@ -1,8 +1,6 @@
 package com.crni99.springmongoatlas.service;
 
-import java.util.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,11 +36,11 @@ public class PersonService {
 	}
 
 	public List<Person> findByDateBetween(LocalDate from, LocalDate to) {
+		return personRepository.findPersonsByDobBetween(from, to);
+	}
 
-		Date d1 = (Date) Date.from(from.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-		Date d2 = (Date) Date.from(to.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-
-		return personRepository.findByDateBetween(d1, d2);
+	public List<Person> findByHobbies(List<String> hobbies) {
+		return personRepository.findPersonsByHobbiesContaining(hobbies);
 	}
 
 	public Person updatePerson(Person personRequested) {
@@ -65,7 +63,7 @@ public class PersonService {
 		if (personRequested.getAddress() != null) {
 			existingPerson.setAddress(personRequested.getAddress());
 		}
-		if (personRequested.getHobbies().size() != 0) {
+		if (personRequested.getHobbies() != null) {
 			existingPerson.setHobbies(personRequested.getHobbies());
 		}
 
