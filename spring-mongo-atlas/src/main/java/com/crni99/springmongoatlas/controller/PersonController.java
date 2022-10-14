@@ -26,16 +26,22 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/persons")
-@Tag(name = "Person")
 public class PersonController {
 
 	private static final String responseCodeOK = "200";
 	private static final String responseCodeCreated = "201";
 	private static final String responseCodeAccepted = "202";
 
+	// @Tag for sorting endpoints by name
+	private static final String tagGet = "1. GET";
+	private static final String tagPost = "2. POST";
+	private static final String tagPut = "3. PUT";
+	private static final String tagDelete = "4. DELETE";
+
 	@Autowired
 	private PersonService personService;
 
+	@Tag(name = tagPost)
 	@PostMapping
 	@Operation(summary = "Create person", responses = {
 			@ApiResponse(description = "Create person success", responseCode = responseCodeCreated, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
@@ -43,6 +49,7 @@ public class PersonController {
 		return personService.addPerson(person);
 	}
 
+	@Tag(name = tagGet)
 	@GetMapping
 	@Operation(summary = "Get persons", responses = {
 			@ApiResponse(description = "Get persons success", responseCode = responseCodeOK, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
@@ -50,6 +57,7 @@ public class PersonController {
 		return personService.findAllPersons();
 	}
 
+	@Tag(name = tagGet)
 	@GetMapping("/{personId}")
 	@Operation(summary = "Get person", responses = {
 			@ApiResponse(description = "Get person success", responseCode = responseCodeOK, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
@@ -57,6 +65,7 @@ public class PersonController {
 		return personService.getPersonById(personId);
 	}
 
+	@Tag(name = tagGet)
 	@GetMapping("/gender/{gender}")
 	@Operation(summary = "Get person by gender", responses = {
 			@ApiResponse(description = "Get person by gender success", responseCode = responseCodeOK, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
@@ -64,6 +73,7 @@ public class PersonController {
 		return personService.getByPersonGender(gender);
 	}
 
+	@Tag(name = tagGet)
 	@GetMapping("/date")
 	@Operation(summary = "Get persons between two dates of birth", responses = {
 			@ApiResponse(description = "Get persons between two dates of birth success", responseCode = responseCodeOK, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
@@ -73,6 +83,7 @@ public class PersonController {
 		return personService.findByDateBetween(from, to);
 	}
 
+	@Tag(name = tagGet)
 	@GetMapping("/hobbies")
 	@Operation(summary = "Get persons by list of hobbies", responses = {
 			@ApiResponse(description = "Get persons by list of hobbies success", responseCode = responseCodeOK, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
@@ -80,6 +91,7 @@ public class PersonController {
 		return personService.findByHobbies(hobbies);
 	}
 
+	@Tag(name = tagPut)
 	@PutMapping
 	@Operation(summary = "Update person", responses = {
 			@ApiResponse(description = "Update person success", responseCode = responseCodeAccepted, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
@@ -87,9 +99,10 @@ public class PersonController {
 		return personService.updatePerson(person);
 	}
 
+	@Tag(name = tagDelete)
 	@DeleteMapping("/{personId}")
 	@Operation(summary = "Delete person", responses = {
-			@ApiResponse(description = "Delete person success", responseCode = responseCodeAccepted, content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))) })
+			@ApiResponse(description = "Delete person success", responseCode = responseCodeAccepted, content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))) })
 	public String deletePerson(@PathVariable String personId) {
 		return personService.deletePerson(personId);
 	}
