@@ -80,4 +80,10 @@ public class PersonServiceImpl implements PersonService {
 		personRepository.deleteById(personId);
 		return personId + " person deleted from dashboard.";
 	}
+
+	@Override
+	public String deletePersonsByGender(String gender) {
+		personRepository.deletePersonsByGender(gender.toUpperCase());
+		return "All persons with gender " + gender + " are deleted";
+	}
 }

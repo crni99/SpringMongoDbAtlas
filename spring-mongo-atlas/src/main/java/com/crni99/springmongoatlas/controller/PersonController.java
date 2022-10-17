@@ -100,10 +100,19 @@ public class PersonController {
 	}
 
 	@Tag(name = tagDelete)
-	@DeleteMapping("/{personId}")
+	@DeleteMapping("/delete/id/{personId}")
 	@Operation(summary = "Delete person", responses = {
 			@ApiResponse(description = "Delete person success", responseCode = responseCodeAccepted, content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))) })
 	public String deletePerson(@PathVariable String personId) {
 		return personService.deletePerson(personId);
 	}
+
+	@Tag(name = tagDelete)
+	@DeleteMapping("/delete/gender/{gender}")
+	@Operation(summary = "Delete person", responses = {
+			@ApiResponse(description = "Delete person success", responseCode = responseCodeAccepted, content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))) })
+	public String deletePersonsByGender(@PathVariable String gender) {
+		return personService.deletePersonsByGender(gender);
+	}
+
 }

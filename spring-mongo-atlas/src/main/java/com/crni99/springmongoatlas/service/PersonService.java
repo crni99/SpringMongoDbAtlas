@@ -7,20 +7,22 @@ import com.crni99.springmongoatlas.model.Person;
 
 public interface PersonService {
 
-	public Person addPerson(Person person);
+	Person addPerson(Person person);
 
-	public List<Person> findAllPersons();
+	List<Person> findAllPersons();
 
-	public Person getPersonById(String personId);
+	Person getPersonById(String personId);
 
-	public List<Person> getByPersonGender(String gender);
+	List<Person> getByPersonGender(String gender);
 
-	public List<Person> findByDateBetween(LocalDate from, LocalDate to);
+	List<Person> findByDateBetween(LocalDate from, LocalDate to);
 
-	public List<Person> findByHobbies(List<String> hobbies);
+	List<Person> findByHobbies(List<String> hobbies);
 
-	public Person updatePerson(Person personRequested);
+	Person updatePerson(Person personRequested);
 
-	public String deletePerson(String personId);
+	String deletePerson(String personId);
+
+	String deletePersonsByGender(String gender);
 
 }
